@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    container_name: Youtube_Director
+    ports:
+      - "5000:5000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    shm_size: '1gb'

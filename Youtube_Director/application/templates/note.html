@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Note Details{% endblock %}
+{% block content %}
+<h2>Note Details</h2>
+<p><strong>ID:</strong> {{ note['id'] }}</p>
+<p><strong>Content, you can also edit your note and see the result:</strong></p>
+<input type="text" value="{{ note['content'] | safe}}">
+
+<p><a href="{{ url_for('home') }}">← Back to Home</a></p>
+{% endblock %}

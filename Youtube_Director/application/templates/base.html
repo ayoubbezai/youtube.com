@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}YouTube Report{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #FF0000;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            margin: 0;
+        }
+        .logout-button {
+            background: white;
+            color: #FF0000;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .logout-button:hover {
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        a {
+            color: #FF0000;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .note {
+            border-bottom: 1px solid #eee;
+            padding: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">YouTube Report</h1>
+        {% if request.cookies.get('token') %}
+        <form action="{{ url_for('logout') }}" method="GET">
+            <button class="logout-button" type="submit">Logout</button>
+        </form>
+        {% endif %}
+    </header>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        &copy; 2025 YouTube Report
+    </footer>
+</body>
+</html>

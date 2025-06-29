@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Youtube Report</title>
+    <style>
+        body { font-family: Arial; background: #f4f4f4; padding: 20px; }
+        .card { background: white; padding: 15px; border-radius: 5px; margin: 10px auto; max-width: 400px; box-shadow: 0 0 5px #ccc; }
+        input, button { width: 100%; margin: 5px 0; padding: 8px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Register / Login</h2>
+        <form method="POST" action="/register">
+            <input name="username" placeholder="Username" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <input name="nickname" placeholder="Nickname" required>
+            <button type="submit">Register</button>
+        </form>
+        <br>
+        <form method="POST" action="/login">
+            <input name="username" placeholder="Username" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>
